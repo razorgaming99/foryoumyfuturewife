@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>For My Love 💙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- romantis font -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue-1: #e6f2ff;
+    --blue-2: #bfe6ff;
+    --accent: #1a75ff;
+    --text: #033a66;
+    --muted: #4d6b86;
+    --pastel-pink: #ffd1dc;
+    --pastel-blue: #d1e7ff;
+    --pastel-purple: #e6d1ff;
+    --pastel-white: #f5f5f5;
+    --pastel-cream: #fff3e6;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: linear-gradient(135deg,var(--blue-1),var(--blue-2));
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }
+
+  /* NAVBAR */
+  nav{
+    position:sticky;
+    top:0;
+    z-index:60;
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    align-items:center;
+    padding:12px 16px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 18px rgba(2,18,54,0.06);
+  }
+  .nav-link{
+    cursor:pointer;
+    padding:8px 14px;
+    border-radius:10px;
+    font-weight:600;
+    color:var(--text);
+    transition: all .18s ease;
+    text-decoration:none;
+  }
+  .nav-link:hover{ color:var(--accent); transform:translateY(-2px); }
+
+  /* Layout sections */
+  .wrap{ max-width:980px; margin:30px auto; padding:18px; }
+  section{ display:none; padding:28px 12px; min-height:72vh; text-align:center; }
+  section.active{ display:block; animation:fadeUp .45s ease both; }
+
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:translateY(0)} }
+
+  /* Home */
+  .hero{
+    display:flex;
+    gap:22px;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .avatar{
+    width:120px; height:120px; border-radius:20px;
+    background: linear-gradient(135deg,#d8eeff,#bfe6ff);
+    display:flex; align-items:center; justify-content:center;
+    font-size:48px; font-weight:700; color:var(--accent);
+    box-shadow: 0 8px 24px rgba(10,40,80,0.08);
+    font-family: 'Dancing Script', cursive;
+  }
+  .info{ max-width:520px; text-align:left; }
+  .info h1{ font-family: 'Dancing Script', cursive; font-size:36px; margin:0 0 6px; color:var(--text)}
+  .info p{ margin:6px 0; color:var(--muted) }
+
+  .socials{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap }
+  .chip{ background:#fff; padding:8px 12px; border-radius:999px; box-shadow:0 6px 16px rgba(2,18,54,0.04); font-weight:600; color:var(--text); text-decoration:none }
+
+  /* Love page */
+  #love-page{ position:relative; overflow:hidden; }
+  .hint{ color:var(--muted); margin-bottom:12px }
+  /* hearts (floating on click) */
+  .heart {
+    position:fixed;
+    pointer-events:none;
+    font-size:32px;
+    animation:heartRise 3s linear forwards;
+    filter: drop-shadow(0 8px 18px rgba(26,117,255,0.12));
+    z-index:40;
+  }
+  @keyframes heartRise {
+    0%{ transform: translateY(0) scale(1); opacity:1 }
+    60%{ opacity:1; transform: translateY(-120px) scale(1.25) }
+    100%{ transform: translateY(-260px) scale(1.6); opacity:0 }
+  }
+
+  /* Flower page */
+  #flower-page{ 
+    position:relative; 
+    overflow:hidden; 
+    min-height:76vh; 
+    display:flex; 
+    flex-direction:column; 
+    align-items:center; 
+    justify-content:space-between; 
+    gap:20px; 
+    padding-bottom:200px; /* Space for garden */
+  }
+  .flower-hint{ color:var(--muted) }
+  /* falling petals */
+  .petal {
+    position:fixed;
+    font-size:22px;
+    top:-40px;
+    pointer-events:none;
+    animation:petalFall linear forwards;
+    z-index:30;
+    filter: drop-shadow(0 6px 14px rgba(2,18,54,0.06));
+  }
+  @keyframes petalFall {
+    to{ transform: translateY(120vh) rotate(360deg); opacity:0 }
+  }
+
+  /* big rose container and grow animation */
+  .rose-wrap{ 
+    width:320px; 
+    height:420px; 
+    position:relative; 
+    display:flex; 
+    align-items:flex-end; 
+    justify-content:center; 
+    overflow:visible; 
+    flex-shrink:0;
+  }
+  .rose{
+    transform-origin:50% 100%;
+    transform: translateY(40px) scale(0.02);
+    transition: transform 1.2s cubic-bezier(.2,.9,.2,1);
+  }
+  .rose.grow{ transform: translateY(0px) scale(1); }
+
+  /* stem */
+  .stem{ width:6px; height:160px; background: linear-gradient(#2b8b3e,#1e5f29); border-radius:4px; margin-bottom:6px; }
+
+  /* bud (petals) */
+  .bud{ position:relative; width:140px; height:140px; display:flex; align-items:center; justify-content:center; margin-bottom:-10px; }
+
+  .petal-shape{
+    position:absolute;
+    width:90px; height:120px;
+    background: radial-gradient(circle at 30% 30%, #ffb3cf 0%, #ff538a 55%);
+    border-radius:60% 60% 50% 50%;
+    transform-origin: bottom center;
+    box-shadow: 0 8px 24px rgba(255,82,140,0.18);
+  }
+
+  /* arrange petals rotated */
+  .p1{ transform: rotate(-20deg) translateY(6px) translateX(-6px) scaleX(.98); }
+  .p2{ transform: rotate(0deg) translateY(-6px); width:96px; }
+  .p3{ transform: rotate(22deg) translateY(6px) translateX(6px); }
+
+  .center{
+    width:48px; height:48px; background: #ffd86e; border-radius:50%;
+    box-shadow: inset 0 -4px 8px rgba(0,0,0,0.06);
+  }
+
+  /* Garden flowers */
+  .garden {
+    width:360px; /* Fixed width for centered flowers */
+    height:200px;
+    display:flex;
+    justify-content:space-around;
+    align-items:flex-end;
+    flex-shrink:0;
+    position:relative;
+    margin:0 auto; /* Center the garden */
+  }
+  .garden-flower {
+    transform-origin:50% 0%; /* Origin at top for upward growth */
+    transform: translateY(100%) scale(0.1);
+    transition: transform 0.8s cubic-bezier(.2,.9,.2,1);
+    width:60px;
+    height:100px;
+    display:flex;
+    flex-direction:column-reverse; /* Bud at top, stem at bottom */
+    align-items:center;
+  }
+  .garden-flower.grow {
+    transform: translateY(0) scale(1);
+  }
+  .garden-stem {
+    width:4px;
+    height:60px;
+    background: linear-gradient(to bottom, #2b8b3e, #1e5f29); /* Gradient downward */
+    border-radius:2px;
+  }
+  .garden-bud {
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  }
+  .garden-bud.pink { background: var(--pastel-pink); }
+  .garden-bud.blue { background: var(--pastel-blue); }
+  .garden-bud.purple { background: var(--pastel-purple); }
+  .garden-bud.white { background: var(--pastel-white); }
+  .garden-bud.cream { background: var(--pastel-cream); }
+
+  /* Did you love me? */
+  #q-page{ display:flex; flex-direction:column; align-items:center; gap:16px; min-height:72vh; justify-content:center; position:relative }
+  .question{ font-size:22px; color:var(--text); font-weight:600 }
+  .btns{ position:relative; display:flex; gap:40px; align-items:center; justify-content:center; margin-top:6px; min-height:120px; }
+  .btn{
+    padding:12px 26px;
+    border-radius:999px;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:700;
+    box-shadow:0 10px 22px rgba(2,18,54,0.06);
+  }
+  .btn.yes{ background: linear-gradient(90deg,#3aa0ff,#1a75ff); color:white; }
+  .btn.no{ background:#ff6b6b; color:white; position:absolute; left:50%; transform:translateX(-50%); }
+
+  /* message overlay */
+  .love-overlay{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(2,18,54,0.18);
+    z-index:120;
+    visibility:hidden;
+    opacity:0;
+    transition: all .28s ease;
+  }
+  .love-overlay.show{ visibility:visible; opacity:1; }
+  .love-card{
+    background: linear-gradient(180deg,#ffffff,#f7fbff);
+    padding:28px 28px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 24px 60px rgba(2,18,54,0.16);
+    max-width:560px;
+  }
+  .love-card h2{ font-family:'Dancing Script',cursive; font-size:32px; margin:6px 0 10px; color:var(--accent) }
+  .love-card p{ color:var(--muted); margin:8px 0 }
+
+  /* Responsive */
+  @media (max-width:640px){
+    .rose-wrap{ width:220px; height:320px }
+    .avatar{ width:96px; height:96px; font-size:40px }
+    .info h1{ font-size:28px }
+    .bud{ width:110px; height:110px }
+    .btns{ gap:22px }
+    .garden { width:280px; height:160px; }
+    .garden-flower { width:40px; height:80px; }
+    .garden-stem { height:50px; }
+    .garden-bud { width:30px; height:30px; }
+    #flower-page { padding-bottom:160px; }
+  }
+</style>
+</head>
+<body>
+  <!-- Audio element for Google Drive audio -->
+  <audio id="bg-audio" autoplay loop style="display:none;">
+    <source src="https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_FILE_ID/view?usp=sharing" type="audio/mpeg">
+  </audio>
+
+  <nav>
+    <a class="nav-link" data-page="home">Home</a>
+    <a class="nav-link" data-page="love">Love</a>
+    <a class="nav-link" data-page="flower">Flower</a>
+    <a class="nav-link" data-page="question">Did You Love Me?</a>
+  </nav>
+
+  <div class="wrap">
+    <!-- HOME -->
+    <section id="home" class="active">
+      <div class="hero">
+        <div class="avatar" id="avatar">A</div>
+        <div class="info">
+          <h1 id="name">Nama Pacar (Isi nanti)</h1>
+          <p id="campus"><strong>Kampus:</strong> Nama Universitas (Isi nanti)</p>
+          <p id="bio">Bio singkat (Isi nanti). Tulis 2-3 kalimat manis yang mewakili dia.</p>
+          <div class="socials" id="socials">
+            <!-- Edit / isi link nanti -->
+            <a class="chip" href="#" target="_blank">Instagram</a>
+            <a class="chip" href="#" target="_blank">TikTok</a>
+            <a class="chip" href="#" target="_blank">Twitter</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOVE -->
+    <section id="love-page">
+      <h2 style="font-family:'Dancing Script',cursive; font-size:34px; margin-bottom:6px">Love</h2>
+      <div class="hint">Klik/ketuk di mana saja untuk menaburkan hati 💖</div>
+      <p style="color:var(--muted); max-width:700px; margin:10px auto 0">(Klik beberapa kali untuk lebih banyak hati — hati akan naik dan menghilang)</p>
+    </section>
+
+    <!-- FLOWER -->
+    <section id="flower-page">
+      <h2 style="font-family:'Dancing Script',cursive; font-size:34px; margin-bottom:6px">Flower</h2>
+      <div class="flower-hint">Klik "Flower" di navbar untuk menumbuhkan bunga-bunga lembut satu per satu.</div>
+
+      <div class="rose-wrap" aria-hidden="true">
+        <div id="rose" class="rose" role="img" aria-label="A growing rose">
+          <!-- build rose with stem + bud -->
+          <div class="stem" aria-hidden="true"></div>
+          <div class="bud" aria-hidden="true">
+            <div class="petal-shape p1"></div>
+            <div class="petal-shape p2"></div>
+            <div class="petal-shape p3"></div>
+            <div class="center"></div>
+          </div>
+        </div>
+      </div>
+      <div class="garden" id="garden">
+        <!-- Garden flowers will be added dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- QUESTION -->
+    <section id="q-page">
+      <div class="question">Do you love me, babe?</div>
+      <div class="btns">
+        <button class="btn yes" id="yesBtn">Yes 💙</button>
+        <button class="btn no" id="noBtn">No 💔</button>
+      </div>
+      <div style="color:var(--muted); margin-top:8px">(Coba tangkap tombol No-nya!)</div>
+    </section>
+  </div>
+
+  <!-- overlay message after Yes -->
+  <div id="overlay" class="love-overlay" role="dialog" aria-hidden="true">
+    <div class="love-card">
+      <h2>I will marry you someday, babe 💍</h2>
+      <p>You're my one and only — <em>forever</em>.</p>
+      <div style="margin-top:14px">
+        <button class="btn yes" id="closeOverlay" style="padding:10px 20px">Close</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ============================
+   Config - fill these later
+   ============================ */
+const GOOGLE_DRIVE_AUDIO_URL = "https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_FILE_ID/view?usp=sharing";
+// ► Replace above with your Google Drive audio file ID
+
+/* ============================
+   Navigation
+   ============================ */
+const pages = ['home','love','flower','question'];
+const sectionMap = {
+  home: document.getElementById('home'),
+  love: document.getElementById('love-page'),
+  flower: document.getElementById('flower-page'),
+  question: document.getElementById('q-page')
+};
+
+document.querySelectorAll('.nav-link').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    const page = e.currentTarget.dataset.page;
+    showPage(page);
+  });
+});
+
+function showPage(page){
+  Object.keys(sectionMap).forEach(k=>{
+    sectionMap[k].classList.remove('active');
+    sectionMap[k].style.display = 'none';
+  });
+  if(page === 'home') { sectionMap['home'].style.display='block'; sectionMap['home'].classList.add('active'); }
+  if(page === 'love') { sectionMap['love'].style.display='block'; sectionMap['love'].classList.add('active'); }
+  if(page === 'flower') {
+    sectionMap['flower'].style.display='block'; sectionMap['flower'].classList.add('active');
+    triggerRoseGrow();
+    triggerGardenGrow();
+  }
+  if(page === 'question') { sectionMap['question'].style.display='block'; sectionMap['question'].classList.add('active'); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================
+   Audio setup (Google Drive)
+   ============================ */
+(function setupAudio(){
+  const audio = document.getElementById('bg-audio');
+  if(!GOOGLE_DRIVE_AUDIO_URL || GOOGLE_DRIVE_AUDIO_URL.includes('YOUR_GOOGLE_DRIVE_FILE_ID')) {
+    audio.src = '';
+    return;
+  }
+  const match = GOOGLE_DRIVE_AUDIO_URL.match(/\/d\/(.+?)\/view/);
+  if (match && match[1]) {
+    const fileId = match[1];
+    audio.src = `https://drive.google.com/uc?export=download&id=${fileId}`;
+  } else {
+    audio.src = '';
+  }
+})();
+
+/* ============================
+   Love page hearts (click to spawn)
+   ============================ */
+const lovePage = document.getElementById('love-page');
+lovePage.addEventListener('click', (e)=>{
+  spawnHeart(e.pageX, e.pageY);
+});
+function spawnHeart(x,y){
+  const el = document.createElement('div');
+  el.className = 'heart';
+  el.innerText = '💖';
+  el.style.left = (x + (Math.random()*40-20)) + 'px';
+  el.style.top = (y + (Math.random()*24-12)) + 'px';
+  document.body.appendChild(el);
+  setTimeout(()=> el.remove(), 3200);
+}
+
+/* ============================
+   Flower page: falling petals + rose grow + garden flowers
+   ============================ */
+let petalTimer = null;
+function createPetal(){
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.innerText = ['🌸','🌺','🌷'][Math.floor(Math.random()*3)];
+  p.style.left = Math.random()*100 + 'vw';
+  p.style.fontSize = (14 + Math.random()*22) + 'px';
+  p.style.animationDuration = (4 + Math.random()*4) + 's';
+  p.style.transform = 'translateY(-20px) rotate('+ (Math.random()*360) +'deg)';
+  document.body.appendChild(p);
+  setTimeout(()=> p.remove(), 9000);
+}
+function startPetals(){
+  if(petalTimer) return;
+  petalTimer = setInterval(()=>{
+    if(sectionMap['flower'].style.display === 'block') createPetal();
+  }, 380);
+}
+function stopPetals(){
+  clearInterval(petalTimer);
+  petalTimer = null;
+}
+
+/* Rose grow control */
+const rose = document.getElementById('rose');
+let roseGrown = false;
+function triggerRoseGrow(){
+  startPetals();
+  if(roseGrown) return;
+  setTimeout(()=> {
+    rose.classList.add('grow');
+    roseGrown = true;
+    for(let i=0;i<8;i++){
+      setTimeout(createPetal, 350*i + 200);
+    }
+  }, 220);
+}
+
+/* Garden flowers control */
+let gardenFlowerIndex = 0;
+const flowerColors = ['pink', 'blue', 'purple', 'white', 'cream'];
+function triggerGardenGrow(){
+  const garden = document.getElementById('garden');
+  if(garden.children.length === 0) {
+    flowerColors.forEach((color, idx) => {
+      const flower = document.createElement('div');
+      flower.className = 'garden-flower';
+      flower.innerHTML = `
+        <div class="garden-stem"></div>
+        <div class="garden-bud ${color}"></div>
+      `;
+      garden.appendChild(flower);
+    });
+  }
+  if(gardenFlowerIndex < flowerColors.length) {
+    const flowers = garden.children;
+    setTimeout(() => {
+      flowers[gardenFlowerIndex].classList.add('grow');
+      gardenFlowerIndex++;
+    }, 300 * gardenFlowerIndex);
+  } else {
+    gardenFlowerIndex = 0;
+    Array.from(garden.children).forEach(flower => flower.classList.remove('grow'));
+  }
+}
+
+/* Stop petals when leaving flower page */
+const observer = new MutationObserver(()=>{
+  if(sectionMap['flower'].style.display !== 'block') stopPetals();
+});
+observer.observe(document.body, { attributes: false, childList: true, subtree: true });
+
+/* ============================
+   Did you love me? - No button evasive behavior
+   ============================ */
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const overlay = document.getElementById('overlay');
+const closeOverlay = document.getElementById('closeOverlay');
+
+let evadeCount = 0;
+function moveNoFar(){
+  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+  const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+  const margin = 120;
+  const x = Math.floor(Math.random() * (vw - 2*margin)) + margin;
+  const y = Math.floor(Math.random() * (vh - 2*margin)) + margin;
+
+  noBtn.style.transition = 'transform 200ms cubic-bezier(.2,.9,.3,1)';
+  noBtn.style.transform = `translate(${x - (vw/2)}px, ${y - (vh/2)}px)`;
+
+  noBtn.style.transform += ' scale(1.02)';
+  setTimeout(()=> noBtn.style.transform = `translate(${x - (vw/2)}px, ${y - (vh/2)}px)`, 200);
+
+  evadeCount++;
+  if(evadeCount > 4) {
+    noBtn.style.opacity = '0.85';
+    noBtn.style.transitionDuration = '180ms';
+  }
+}
+noBtn.addEventListener('mouseenter', moveNoFar);
+noBtn.addEventListener('touchstart', (e)=>{
+  e.preventDefault();
+  moveNoFar();
+}, {passive:false});
+
+yesBtn.addEventListener('click', ()=> {
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden','false');
+});
+closeOverlay.addEventListener('click', ()=> {
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden','true');
+});
+
+/* Accessibility: close overlay with Escape */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') overlay.classList.remove('show');
+});
+
+/* ============================
+   Quick helpers: set avatar initial from name typed later
+   ============================ */
+function setPlaceholdersFromName(name){
+  if(!name) return;
+  const av = document.getElementById('avatar');
+  av.textContent = name.trim().charAt(0).toUpperCase();
+  document.getElementById('name').textContent = name;
+}
+
+/* ============================
+   Initialize: show home & start petals paused
+   ============================ */
+showPage('home');
+
+/* Optional: ensure grow triggers if reloaded on flower page */
+if(sectionMap['flower'].style.display === 'block') {
+  triggerRoseGrow();
+  triggerGardenGrow();
+}
+
+</script>
+</body>
+</html>
