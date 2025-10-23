@@ -170,6 +170,16 @@
     to{ transform: translateY(120vh) rotate(360deg); opacity:0 }
   }
 
+  /* Rose animation (perbaikan: tambahkan CSS untuk .rose.grow) */
+  .rose {
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(.2, .9, .2, 1);
+  }
+  .rose.grow {
+    transform: scale(1);
+    opacity: 1;
+  }
 
   /* stem */
   .stem{ width:6px; height:160px; background: linear-gradient(#2b8b3e,#1e5f29); border-radius:4px; margin-bottom:6px; }
@@ -312,7 +322,7 @@
 </head>
 <body>
 
-  <audio id="bg-music" src="voice.mp3" autoplay loop></audio>
+  <audio id="bg-music" src="voice.mp3" autoplay loop style="display:none;"></audio>
 
   <nav>
     <a class="nav-link" data-page="home">Home</a>
@@ -342,7 +352,6 @@
         </div>
       </div>
     </section>
-
 
     <!-- LOVE -->
     <section id="love-page">
@@ -395,12 +404,6 @@
 
 <script>
 /* ============================
-   Config - fill these later
-   ============================ */
-const GOOGLE_DRIVE_AUDIO_URL = "https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_FILE_ID/view?usp=sharing";
-// ► Replace above with your Google Drive audio file ID
-
-/* ============================
    Navigation
    ============================ */
 const pages = ['home','love','flower','question'];
@@ -435,11 +438,26 @@ function showPage(page){
 }
 
 /* ============================
-   Audio setup (Google Drive)
+   Audio setup (kembali ke kode asli Anda, tapi dengan penanganan error)
    ============================ */
-    const music = document.getElementById('bg-music');
+const music = document.getElementById('bg-music');
 
-    // Fade-in for audio
+// Coba autoplay langsung (seperti kode asli Anda)
+music.volume = 0; // Mulai dari volume 0
+music.play().then(() => {
+  // Jika autoplay berhasil, fade-in volume
+  const fadeAudio = setInterval(() => {
+    if (music.volume < 1) {
+      music.volume += 0.02;
+    } else {
+      clearInterval(fadeAudio);
+    }
+  }, 100);
+}).catch(err => {
+  console.log('Autoplay blocked by browser:', err);
+  // Jika diblokir, tunggu klik pengguna untuk mulai
+  document.addEventListener('click', () => {
+    music.play();
     music.volume = 0;
     const fadeAudio = setInterval(() => {
       if (music.volume < 1) {
@@ -448,6 +466,8 @@ function showPage(page){
         clearInterval(fadeAudio);
       }
     }, 100);
+  }, { once: true }); // Hanya sekali
+});
 
 /* ============================
    Love page hearts (click to spawn)
@@ -470,7 +490,9 @@ function spawnHeart(x,y){
    Flower page: falling petals + rose grow + garden flowers
    ============================ */
 let petalTimer = null;
-let gardenCreated = false;
+let roseGrown = false;
+const rose = document.getElementById('rose');
+
 function createPetal(){
   const p = document.createElement('div');
   p.className = 'petal';
@@ -506,9 +528,6 @@ function triggerRoseGrow(){
 }
 
 /* Garden flowers control */
-// === Flower Animation Improved ===
-  const flowerSection = document.getElementById("flower-page");
-
 function createGardenFlowers() {
   const garden = document.getElementById("garden");
   if (!garden) return;
@@ -538,17 +557,11 @@ function createGardenFlowers() {
     setTimeout(() => f.classList.add("grow"), i * 400);
   });
 }
-// jalankan otomatis saat masuk ke halaman "Flower"
+
 function createGardenGrow() {
   triggerRoseGrow();
   createGardenFlowers();
 }
-
-// perhatikan: di nav-link sudah ada data-page, bukan data-target
-document.querySelector('[data-page="flower"]').addEventListener("click", () => {
-  setTimeout(createGardenGrow, 500);
-});
-
 
 /* Stop petals when leaving flower page */
 const observer = new MutationObserver(()=>{
@@ -624,7 +637,6 @@ showPage('home');
 if(sectionMap['flower'].style.display === 'block') {
   createGardenGrow();
 }
-
 </script>
 </body>
 </html>
