@@ -6,7 +6,6 @@
 <title>For My Love 💙</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- romantis font -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -67,27 +66,64 @@
   @keyframes fadeUp{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:translateY(0)} }
 
   /* Home */
-  .hero{
-    display:flex;
-    gap:22px;
-    align-items:center;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
-  .avatar{
-    width:120px; height:120px; border-radius:20px;
-    background: linear-gradient(135deg,#d8eeff,#bfe6ff);
-    display:flex; align-items:center; justify-content:center;
-    font-size:48px; font-weight:700; color:var(--accent);
-    box-shadow: 0 8px 24px rgba(10,40,80,0.08);
-    font-family: 'Dancing Script', cursive;
-  }
-  .info{ max-width:520px; text-align:left; }
-  .info h1{ font-family: 'Dancing Script', cursive; font-size:36px; margin:0 0 6px; color:var(--text)}
-  .info p{ margin:6px 0; color:var(--muted) }
+.hero {
+  display: flex;
+  flex-direction: row; /* pastikan horizontal */
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  text-align: left;
+}
 
-  .socials{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap }
-  .chip{ background:#fff; padding:8px 12px; border-radius:999px; box-shadow:0 6px 16px rgba(2,18,54,0.04); font-weight:600; color:var(--text); text-decoration:none }
+.avatar {
+  width: 240px;
+  height: 240px;
+  border-radius: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent);
+  box-shadow: 0 8px 24px rgba(10,40,80,0.08);
+  font-family: 'Dancing Script', cursive;
+  flex-shrink: 0; /* supaya avatar tidak mengecil saat layar kecil */
+}
+
+.info {
+  max-width: 520px;
+  text-align: left;
+}
+
+.info h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 36px;
+  margin: 0 0 6px;
+  color: var(--text);
+}
+
+.info p {
+  margin: 6px 0;
+  color: var(--muted);
+}
+
+.socials {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(2,18,54,0.04);
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
 
   /* Love page */
   #love-page{ position:relative; overflow:hidden; }
@@ -134,23 +170,6 @@
     to{ transform: translateY(120vh) rotate(360deg); opacity:0 }
   }
 
-  /* big rose container and grow animation */
-  .rose-wrap{ 
-    width:320px; 
-    height:420px; 
-    position:relative; 
-    display:flex; 
-    align-items:flex-end; 
-    justify-content:center; 
-    overflow:visible; 
-    flex-shrink:0;
-  }
-  .rose{
-    transform-origin:50% 100%;
-    transform: translateY(40px) scale(0.02);
-    transition: transform 1.2s cubic-bezier(.2,.9,.2,1);
-  }
-  .rose.grow{ transform: translateY(0px) scale(1); }
 
   /* stem */
   .stem{ width:6px; height:160px; background: linear-gradient(#2b8b3e,#1e5f29); border-radius:4px; margin-bottom:6px; }
@@ -177,47 +196,63 @@
     box-shadow: inset 0 -4px 8px rgba(0,0,0,0.06);
   }
 
+.rose-wrap {
+  position: relative;
+  z-index: 2; /* di atas background tapi di bawah taman */
+  margin-top: 30px;
+}
+
   /* Garden flowers */
-  .garden {
-    width:360px; /* Fixed width for centered flowers */
-    height:200px;
-    display:flex;
-    justify-content:space-around;
-    align-items:flex-end;
-    flex-shrink:0;
-    position:relative;
-    margin:0 auto; /* Center the garden */
-  }
-  .garden-flower {
-    transform-origin:50% 0%; /* Origin at top for upward growth */
-    transform: translateY(100%) scale(0.1);
-    transition: transform 0.8s cubic-bezier(.2,.9,.2,1);
-    width:60px;
-    height:100px;
-    display:flex;
-    flex-direction:column-reverse; /* Bud at top, stem at bottom */
-    align-items:center;
-  }
-  .garden-flower.grow {
-    transform: translateY(0) scale(1);
-  }
-  .garden-stem {
-    width:4px;
-    height:60px;
-    background: linear-gradient(to bottom, #2b8b3e, #1e5f29); /* Gradient downward */
-    border-radius:2px;
-  }
-  .garden-bud {
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
-  }
-  .garden-bud.pink { background: var(--pastel-pink); }
-  .garden-bud.blue { background: var(--pastel-blue); }
-  .garden-bud.purple { background: var(--pastel-purple); }
-  .garden-bud.white { background: var(--pastel-white); }
-  .garden-bud.cream { background: var(--pastel-cream); }
+.garden {
+  width: 100%;
+  max-width: 600px;
+  height: 220px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  margin-top: 60px;
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+}
+
+.garden-flower {
+  transform-origin: bottom center;
+  transform: scaleY(0) translateY(60px);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(.2, .9, .2, 1);
+  width: 50px;
+  height: 120px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.garden-flower.grow {
+  transform: scaleY(1) translateY(0);
+  opacity: 1;
+}
+
+.garden-stem {
+  width: 4px;
+  height: 80px;
+  background: linear-gradient(to bottom, #2b8b3e, #1e5f29);
+  border-radius: 2px;
+}
+
+.garden-bud {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.garden-bud.pink { background: var(--pastel-pink); }
+.garden-bud.blue { background: var(--pastel-blue); }
+.garden-bud.purple { background: var(--pastel-purple); }
+.garden-bud.white { background: var(--pastel-white); }
+.garden-bud.cream { background: var(--pastel-cream); }
 
   /* Did you love me? */
   #q-page{ display:flex; flex-direction:column; align-items:center; gap:16px; min-height:72vh; justify-content:center; position:relative }
@@ -263,7 +298,7 @@
   /* Responsive */
   @media (max-width:640px){
     .rose-wrap{ width:220px; height:320px }
-    .avatar{ width:96px; height:96px; font-size:40px }
+    .avatar{ width:96px; height:96px}
     .info h1{ font-size:28px }
     .bud{ width:110px; height:110px }
     .btns{ gap:22px }
@@ -276,10 +311,8 @@
 </style>
 </head>
 <body>
-  <!-- Audio element for Google Drive audio -->
-  <audio id="bg-audio" autoplay loop style="display:none;">
-    <source src="https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_FILE_ID/view?usp=sharing" type="audio/mpeg">
-  </audio>
+
+  <audio id="bg-music" src="voice.mp3" autoplay loop></audio>
 
   <nav>
     <a class="nav-link" data-page="home">Home</a>
@@ -292,20 +325,24 @@
     <!-- HOME -->
     <section id="home" class="active">
       <div class="hero">
-        <div class="avatar" id="avatar">A</div>
+        <div class="avatar">
+          <img id="avatar-img" src="you.jpg" alt="Avatar" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+          <input type="file" id="avatar-upload" accept="image/*" style="display:none;">
+        </div>
+
         <div class="info">
-          <h1 id="name">Nama Pacar (Isi nanti)</h1>
-          <p id="campus"><strong>Kampus:</strong> Nama Universitas (Isi nanti)</p>
-          <p id="bio">Bio singkat (Isi nanti). Tulis 2-3 kalimat manis yang mewakili dia.</p>
+          <h1 id="name">Putri Apriliani</h1>
+          <p id="campus"><strong>Kampus:</strong> Universitas Syiah Kuala Fakultas MIPA</p>
+          <p id="bio">I really love my girlfriend my future wife, even though she likes to get angry, sulk, crybaby I don't care, because when she smiles, cries, laughs, frowns she is so cute, even when she is hurt I want to be the first to step forward to protect her she is like a princess and I am like a knight on horseback. what I want to say is I love you so so fucking much babyy &lt;3.</p>
           <div class="socials" id="socials">
-            <!-- Edit / isi link nanti -->
-            <a class="chip" href="#" target="_blank">Instagram</a>
-            <a class="chip" href="#" target="_blank">TikTok</a>
-            <a class="chip" href="#" target="_blank">Twitter</a>
+            <a class="chip" href="https://www.instagram.com/pixiehrt_?igsh=cmR2ejFzaXh0MXVk" target="_blank">Instagram</a>
+            <a class="chip" href="https://www.tiktok.com/@pixiehrt?_t=ZS-90koOau254L&_r=1" target="_blank">TikTok</a>
+            <a class="chip" href="https://x.com/pixiehrt_?t=VcVtglAgGQlzWD8C9799QA&s=09" target="_blank">Twitter</a>
           </div>
         </div>
       </div>
     </section>
+
 
     <!-- LOVE -->
     <section id="love-page">
@@ -321,7 +358,6 @@
 
       <div class="rose-wrap" aria-hidden="true">
         <div id="rose" class="rose" role="img" aria-label="A growing rose">
-          <!-- build rose with stem + bud -->
           <div class="stem" aria-hidden="true"></div>
           <div class="bud" aria-hidden="true">
             <div class="petal-shape p1"></div>
@@ -332,7 +368,6 @@
         </div>
       </div>
       <div class="garden" id="garden">
-        <!-- Garden flowers will be added dynamically via JS -->
       </div>
     </section>
 
@@ -393,7 +428,7 @@ function showPage(page){
   if(page === 'flower') {
     sectionMap['flower'].style.display='block'; sectionMap['flower'].classList.add('active');
     triggerRoseGrow();
-    triggerGardenGrow();
+    createGardenGrow();
   }
   if(page === 'question') { sectionMap['question'].style.display='block'; sectionMap['question'].classList.add('active'); }
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -402,20 +437,17 @@ function showPage(page){
 /* ============================
    Audio setup (Google Drive)
    ============================ */
-(function setupAudio(){
-  const audio = document.getElementById('bg-audio');
-  if(!GOOGLE_DRIVE_AUDIO_URL || GOOGLE_DRIVE_AUDIO_URL.includes('YOUR_GOOGLE_DRIVE_FILE_ID')) {
-    audio.src = '';
-    return;
-  }
-  const match = GOOGLE_DRIVE_AUDIO_URL.match(/\/d\/(.+?)\/view/);
-  if (match && match[1]) {
-    const fileId = match[1];
-    audio.src = `https://drive.google.com/uc?export=download&id=${fileId}`;
-  } else {
-    audio.src = '';
-  }
-})();
+    const music = document.getElementById('bg-music');
+
+    // Fade-in for audio
+    music.volume = 0;
+    const fadeAudio = setInterval(() => {
+      if (music.volume < 1) {
+        music.volume += 0.02;
+      } else {
+        clearInterval(fadeAudio);
+      }
+    }, 100);
 
 /* ============================
    Love page hearts (click to spawn)
@@ -438,6 +470,7 @@ function spawnHeart(x,y){
    Flower page: falling petals + rose grow + garden flowers
    ============================ */
 let petalTimer = null;
+let gardenCreated = false;
 function createPetal(){
   const p = document.createElement('div');
   p.className = 'petal';
@@ -460,9 +493,6 @@ function stopPetals(){
   petalTimer = null;
 }
 
-/* Rose grow control */
-const rose = document.getElementById('rose');
-let roseGrown = false;
 function triggerRoseGrow(){
   startPetals();
   if(roseGrown) return;
@@ -476,32 +506,49 @@ function triggerRoseGrow(){
 }
 
 /* Garden flowers control */
-let gardenFlowerIndex = 0;
-const flowerColors = ['pink', 'blue', 'purple', 'white', 'cream'];
-function triggerGardenGrow(){
-  const garden = document.getElementById('garden');
-  if(garden.children.length === 0) {
-    flowerColors.forEach((color, idx) => {
-      const flower = document.createElement('div');
-      flower.className = 'garden-flower';
-      flower.innerHTML = `
-        <div class="garden-stem"></div>
-        <div class="garden-bud ${color}"></div>
-      `;
-      garden.appendChild(flower);
-    });
+// === Flower Animation Improved ===
+  const flowerSection = document.getElementById("flower-page");
+
+function createGardenFlowers() {
+  const garden = document.getElementById("garden");
+  if (!garden) return;
+
+  garden.innerHTML = "";
+
+  const colors = ["pink", "blue", "purple", "white", "cream"];
+  const totalFlowers = 10;
+
+  for (let i = 0; i < totalFlowers; i++) {
+    const flower = document.createElement("div");
+    flower.classList.add("garden-flower");
+
+    const stem = document.createElement("div");
+    stem.classList.add("garden-stem");
+
+    const bud = document.createElement("div");
+    bud.classList.add("garden-bud", colors[i % colors.length]);
+
+    flower.appendChild(stem);
+    flower.appendChild(bud);
+    garden.appendChild(flower);
   }
-  if(gardenFlowerIndex < flowerColors.length) {
-    const flowers = garden.children;
-    setTimeout(() => {
-      flowers[gardenFlowerIndex].classList.add('grow');
-      gardenFlowerIndex++;
-    }, 300 * gardenFlowerIndex);
-  } else {
-    gardenFlowerIndex = 0;
-    Array.from(garden.children).forEach(flower => flower.classList.remove('grow'));
-  }
+
+  const all = garden.querySelectorAll(".garden-flower");
+  all.forEach((f, i) => {
+    setTimeout(() => f.classList.add("grow"), i * 400);
+  });
 }
+// jalankan otomatis saat masuk ke halaman "Flower"
+function createGardenGrow() {
+  triggerRoseGrow();
+  createGardenFlowers();
+}
+
+// perhatikan: di nav-link sudah ada data-page, bukan data-target
+document.querySelector('[data-page="flower"]').addEventListener("click", () => {
+  setTimeout(createGardenGrow, 500);
+});
+
 
 /* Stop petals when leaving flower page */
 const observer = new MutationObserver(()=>{
@@ -575,8 +622,7 @@ showPage('home');
 
 /* Optional: ensure grow triggers if reloaded on flower page */
 if(sectionMap['flower'].style.display === 'block') {
-  triggerRoseGrow();
-  triggerGardenGrow();
+  createGardenGrow();
 }
 
 </script>
